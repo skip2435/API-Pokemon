@@ -31,7 +31,10 @@
       </div>
       <div v-if="pokemonData.name" class="w-full max-w-lg bg-white shadow-lg rounded-lg overflow-hidden mx-auto mb-4">
         <div class="py-4 px-6">
-          <h2 class="text-2xl font-bold text-red-500">{{ pokemonData.name }}</h2>
+          <div class="flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-red-500">{{ pokemonData.name }}</h2>
+            <img :src="pokemonData.sprites.front_default" alt="Pokemon image" class="h-25 w-25 object-cover">
+          </div>
           <div class="mt-4">
             <h3 class="text-lg font-semibold text-red-600">Abilities:</h3>
             <ul class="space-y-1">
@@ -146,4 +149,3 @@ export default {
   animation: neon 1s ease-in-out infinite alternate;
 }
 </style>
-
