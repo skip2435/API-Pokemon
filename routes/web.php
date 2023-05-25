@@ -26,3 +26,7 @@ Route::get('/poke-search', function () {
 
 // Add this line to provide a route for getting individual Pokemon data.
 Route::get('/pokemon/{pokemon}', [PokemonController::class, 'show']);
+
+Route::get('/encounters', function () {
+    return view('encounters');
+});
