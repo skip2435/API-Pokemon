@@ -2,21 +2,21 @@
   <div class="min-h-screen bg-red-100 flex flex-col">
     <nav class="bg-red-500 text-white p-3">
       <ul class="flex justify-around">
-        <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/">Moves</a></li>
-        <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="#">Pokemon</a></li>
-        <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/poke-search">Poke Search</a></li>
+        <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/" class="text-xl font-semibold">Moves</a></li>
+        <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="#" class="text-xl font-semibold">Pokemon</a></li>
+        <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/poke-search" class="text-xl font-semibold">Poke Search</a></li>
       </ul>
     </nav>
 
-    <div class="flex flex-col items-center justify-center flex-grow">
+    <div class="flex flex-col items-center justify-center flex-grow px-4 sm:px-0">
       <h1 class="text-4xl font-bold mb-4 text-red-600">Pokemon Search</h1>
-      <div class="relative">
+      <div class="relative w-full sm:w-auto">
         <input 
           type="text" 
           v-model="pokemonName" 
           @input="fetchPokemonList" 
           placeholder="Lowercase letters only..."
-          class="px-4 py-2 rounded-lg border-0 shadow-lg mb-4 text-lg bg-white text-gray-700 placeholder-gray-500"
+          class="px-4 py-2 rounded-lg border-0 shadow-lg mb-4 text-lg bg-white text-gray-700 placeholder-gray-500 w-full"
         >
         <div class="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg" v-if="pokemonSuggestions.length">
           <div 
@@ -34,8 +34,8 @@
           <h2 class="text-2xl font-bold text-red-500">{{ pokemonData.name }}</h2>
           <div class="mt-4">
             <h3 class="text-lg font-semibold text-red-600">Abilities:</h3>
-            <ul>
-              <li v-for="ability in pokemonData.abilities" :key="ability.ability.name" class="text-gray-700">
+            <ul class="space-y-1">
+              <li v-for="ability in pokemonData.abilities" :key="ability.ability.name" class="text-gray-700 shadow p-1 rounded">
                 {{ ability.ability.name }}
               </li>
             </ul>
@@ -43,24 +43,25 @@
           <div v-if="pokemonData.moves.length > 0" class="mt-4">
             <h3 class="text-lg font-semibold text-red-600">Moves:</h3>
             <h4 class="text-md font-semibold text-red-600">Learned by leveling up:</h4>
-            <ul>
-              <li v-for="move in levelUpMoves" :key="move.name" class="text-gray-700">
+            <ul class="space-y-1">
+              <li v-for="move in levelUpMoves" :key="move.name" class="text-gray-700 shadow p-1 rounded">
                 {{ move.name }} (Level: {{ move.level }})
               </li>
             </ul>
             <h4 class="text-md font-semibold text-red-600">Not learned by leveling up:</h4>
-            <ul>
-              <li v-for="move in otherMoves" :key="move.move.name" class="text-gray-700">
+            <ul class="space-y-1">
+            <li v-for="move in otherMoves" :key="move.move.name" class="text-gray-700 shadow p-1 rounded">
                 {{ move.move.name }}
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <div v-if="errorMessage" class="text-red-600">{{ errorMessage }}</div>
+      <div v-if="errorMessage" class="text-red-600 text-lg font-semibold">{{ errorMessage }}</div>
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
