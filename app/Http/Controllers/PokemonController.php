@@ -94,4 +94,36 @@ class PokemonController extends Controller
             return view('error', ['message' => 'Error fetching encounters']);
         }
     }
+    public function fetchPokemon($name)
+{
+    // Fetch the pokemon data.
+    $response = Http::get('https://pokeapi.co/api/v2/pokemon/'.$name);
+
+    if ($response->successful()) {
+        $pokemonData = $response->json();
+        
+        // Fetch the species data for the pokemon.
+        $speciesResponse = Http::get('https://pokeapi.co/api/v2/pokemon-species/'.$pokemonData['id']);
+        if ($speciesResponse->successful()) {
+            $speciesData = $speciesResponse->json();
+            
+            // Find the English description from the species data.
+            foreach ($speciesData['flavor_text_entries'] as $entry) {
+                if ($entry['language']['name'] === 'en') {
+                    $pokemonData['description'] = $entry['flavor_text'];
+                    break;
+                }
+            }
+            
+            return view('pokemon', [
+                'pokemonData' => $pokemonData,
+            ]);
+        } else {
+            return view('error', ['message' => 'Error fetching species data']);
+        }
+    } else {
+        return view('error', ['message' => 'Error fetching pokemon']);
+    }
+}
+
 }

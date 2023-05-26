@@ -30,3 +30,6 @@ Route::get('/pokemon/{pokemon}', [PokemonController::class, 'show']);
 Route::get('/encounters', function () {
     return view('encounters');
 });
+
+//Calling the API to grab Pokedex descriptions from the controller.
+Route::get('/pokemon/{name}', [PokemonController::class, 'fetchPokemon']);

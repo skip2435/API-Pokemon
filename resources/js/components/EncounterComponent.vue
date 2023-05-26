@@ -8,6 +8,15 @@
       </ul>
     </nav>
 
+    <div class="flex flex-wrap justify-around items-center p-10">
+    <img 
+      v-for="(image, index) in randomPokemonImages" 
+      :key="index"
+      :src="image"
+      class="w-24 h-24 object-cover rounded-full shadow-lg m-2"
+    />
+  </div>
+
     <div class="flex flex-col items-center justify-center flex-grow px-4 sm:px-0">
       <h1 class="text-4xl font-bold mb-4 text-red-600">Pokemon Encounters</h1>
       <div class="relative w-full sm:w-auto">
@@ -48,76 +57,95 @@
                   <p><b>Min level:</b> {{ encounterDetail.min_level }}</p>
                   <p><b>Max level:</b> {{ encounterDetail.max_level }}</p>
                   <p><b>Condition:</b> {{ encounterDetail.condition_values.length > 0 ? encounterDetail.condition_values[0].name : 'None' }}</p>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </transition>
-        <div v-if="errorMessage" class="text-red-600 text-lg font-semibold">{{ errorMessage }}</div>
-      </div>
+        </div>
+      </transition>
+      <div v-if="errorMessage" class="text-red-600 text-lg font-semibold">{{ errorMessage }}</div>
     </div>
-  </template>
-  
-  <script>
-  import axios from 'axios';
-  
-  export default {
-    data() {
-      return {
-        selectedPokemon: '',
-        pokemonSuggestions: [],
-        encounters: [],
-        selectedPokemonDetails: null,
-        errorMessage: ''
-      }
-    },
-    watch: {
-      selectedPokemon(newValue) {
-        if (newValue) {
-          this.fetchPokemonList(newValue);
-        } else {
-          this.pokemonSuggestions = [];
-        }
-      }
-    },
-    methods: {
-      async fetchPokemonList() {
-        try {
-          const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1000');
-          this.pokemonSuggestions = response.data.results.filter(pokemon => pokemon.name.startsWith(this.selectedPokemon));
-        } catch (error) {
-          console.error(error);
-          this.errorMessage = "An error occurred while fetching the Pokemon list";
-        }
-      },
-      selectPokemon(name) {
-        this.fetchEncounters(name);
-        this.fetchPokemonDetails(name);
-        this.selectedPokemon = '';
-        this.pokemonSuggestions = [];
-      },
-      async fetchEncounters(name) {
-        try {
-          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/encounters`);
-          this.encounters = response.data;
-        } catch (error) {
-          console.error(error);
-          this.errorMessage = "An error occurred while fetching Pokemon encounters";
-        }
-      },
-      async fetchPokemonDetails(name) {
-        try {
-          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-          this.selectedPokemonDetails = response.data;
-        } catch (error) {
-          console.error(error);
-          this.errorMessage = "An error occurred while fetching Pokemon details";
-        }
-      },
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      selectedPokemon: '',
+      pokemonSuggestions: [],
+      encounters: [],
+      selectedPokemonDetails: null,
+      errorMessage: '',
+      randomPokemonImages: []
     }
-  };
-  </script>         
+  },
+  created() {
+    this.fetchRandomPokemonImages();
+  },
+  watch: {
+    selectedPokemon(newValue) {
+      if (newValue) {
+        this.fetchPokemonList(newValue);
+      } else {
+        this.pokemonSuggestions = [];
+      }
+    }
+  },
+  methods: {
+    async fetchPokemonList() {
+      try {
+        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1000');
+        this.pokemonSuggestions = response.data.results.filter(pokemon => pokemon.name.startsWith(this.selectedPokemon));
+      } catch (error) {
+        console.error(error);
+        this.errorMessage = "An error occurred while fetching the Pokemon list";
+      }
+    },
+    selectPokemon(name) {
+      this.fetchEncounters(name);
+      this.fetchPokemonDetails(name);
+      this.selectedPokemon = '';
+      this.pokemonSuggestions = [];
+    },
+    async fetchEncounters(name) {
+      try {
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}/encounters`);
+        this.encounters = response.data;
+      } catch (error) {
+        console.error(error);
+        this.errorMessage = "An error occurred while fetching Pokemon encounters";
+      }
+    },
+    async fetchPokemonDetails(name) {
+      try {
+        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        this.selectedPokemonDetails = response.data;
+      } catch (error) {
+        console.error(error);
+        this.errorMessage = "An error occurred while fetching Pokemon details";
+      }
+    },
+    async fetchRandomPokemonImages() {
+      try {
+        let randomIds = [];
+        for(let i=0; i<5; i++) {
+          let randomId = Math.floor(Math.random() * 800) + 1;
+          randomIds.push(randomId);
+        }
+        const responses = await Promise.all(randomIds.map(id => axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)));
+        this.randomPokemonImages = responses.map(response => response.data.sprites.other['official-artwork']['front_default']);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    
+  }
+  
+};
+</script>
 
 
 <style scoped>
