@@ -4,6 +4,7 @@
       <ul class="flex justify-around">
         <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/" class="text-xl font-semibold">Moves</a></li>
         <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/encounters" class="text-xl font-semibold">Pokemon</a></li>
+        <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/location-search" class="text-xl font-semibold">Locations</a></li>
         <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/poke-search" class="text-xl font-semibold">Poke Search</a></li>
       </ul>
     </nav>

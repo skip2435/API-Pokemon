@@ -33,3 +33,8 @@ Route::get('/encounters', function () {
 
 //Calling the API to grab Pokedex descriptions from the controller.
 Route::get('/pokemon/{name}', [PokemonController::class, 'fetchPokemon']);
+
+// Add a new route for the location search page.
+Route::get('/location-search', function () {
+    return view('location-search');
+});

@@ -4,6 +4,7 @@
     <ul class="flex justify-around">
       <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/" class="text-xl font-semibold">Moves</a></li>
       <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/encounters" class="text-xl font-semibold">Pokemon</a></li>
+      <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/location-search" class="text-xl font-semibold">Locations</a></li>
       <li class="neon hover:bg-red-400 transition-colors duration-200 rounded px-2 py-1"><a href="/poke-search" class="text-xl font-semibold">Poke Search</a></li>
     </ul>
   </nav>
@@ -35,6 +36,32 @@
           <div class="flex flex-col justify-center items-center">
             <h2 class="text-2xl font-bold text-red-500">{{ pokemonData.name }}</h2>
             <img :src="pokemonData.sprites.front_default" alt="Pokemon image" class="h-30 w-30 object-cover">
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4 border border-red-500 p-4 rounded-md">
+            <div class="flex justify-between items-center">
+              <h4 class="font-semibold text-red-600">HP:</h4>
+              <h4 class="font-semibold text-gray-700">{{ pokemonData.stats[0].base_stat }}</h4>
+            </div>
+            <div class="flex justify-between items-center">
+              <h4 class="font-semibold text-red-600">Special Attack:</h4>
+              <h4 class="font-semibold text-gray-700">{{ pokemonData.stats[2].base_stat }}</h4>
+            </div>
+            <div class="flex justify-between items-center">
+              <h4 class="font-semibold text-red-600">Attack:</h4>
+              <h4 class="font-semibold text-gray-700">{{ pokemonData.stats[1].base_stat }}</h4>
+            </div>
+            <div class="flex justify-between items-center">
+              <h4 class="font-semibold text-red-600">Special Defense:</h4>
+              <h4 class="font-semibold text-gray-700">{{ pokemonData.stats[3].base_stat }}</h4>
+            </div>
+            <div class="flex justify-between items-center">
+              <h4 class="font-semibold text-red-600">Defense:</h4>
+              <h4 class="font-semibold text-gray-700">{{ pokemonData.stats[4].base_stat }}</h4>
+            </div>
+            <div class="flex justify-between items-center">
+              <h4 class="font-semibold text-red-600">Speed:</h4>
+              <h4 class="font-semibold text-gray-700">{{ pokemonData.stats[5].base_stat }}</h4>
+            </div>
           </div>
           <div v-if="pokedexEntry.flavor_text_entries" class="mt-4">
             <h3 class="text-lg font-semibold text-red-600">Pokedex Entry:</h3>
@@ -70,7 +97,6 @@
   </div>
 </div>
 </template>
-
 
 
 <script>
