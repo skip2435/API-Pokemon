@@ -38,3 +38,13 @@ Route::get('/pokemon/{name}', [PokemonController::class, 'fetchPokemon']);
 Route::get('/location-search', function () {
     return view('location-search');
 });
+
+// Add a new route for the location search page.
+Route::get('/location-selection', function () {
+    return view('location-selection');
+});
+
+Route::get('/game-component', function () {
+    return view('game-component');
+});
+

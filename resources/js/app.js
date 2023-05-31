@@ -12,8 +12,16 @@ app.component('search-component', SearchComponent);
 import EncounterComponent from './components/EncounterComponent.vue';
 app.component('encounter-component', EncounterComponent);
 
-// Import the new Vue component
 import LocationComponent from './components/LocationComponent.vue';
 app.component('location-component', LocationComponent);
 
+// Importing the LocationSelection Component
+import LocationSelection from './components/LocationSelection.vue';
+app.component('location-selection', LocationSelection);
+
+// Importing the GameComponent
+import GameComponent from './components/GameComponent.vue';
+app.component('game-component', GameComponent);
+
 app.mount('#app');
+
