@@ -74,7 +74,7 @@ export default {
       window.location.href = '/location-search';
     },
     goToGame() {
-      window.location.href = '/game-search';
+      window.location.href = '/game-component';
     },
 },
 };
